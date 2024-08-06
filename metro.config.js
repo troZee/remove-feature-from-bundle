@@ -1,4 +1,5 @@
 const {getDefaultConfig, mergeConfig} = require('@react-native/metro-config');
+require('dotenv').config();
 
 /**
  * Metro configuration
