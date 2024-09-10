@@ -2577,6 +2577,41 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rnx-kit/console@npm:^1.0.0":
+  version: 1.1.0
+  resolution: "@rnx-kit/console@npm:1.1.0"
+  checksum: fcef1fff6e6b66cbbfaddb8af26a298b1f506194bcedde473485f5d467ad9f5ab897c57a9d302e0541d8a86a315df261bdfa0b9c9c24435541f465c20eaaae66
+  languageName: node
+  linkType: hard
+
+"@rnx-kit/metro-resolver-symlinks@npm:^0.1.36":
+  version: 0.1.36
+  resolution: "@rnx-kit/metro-resolver-symlinks@npm:0.1.36"
+  dependencies:
+    "@rnx-kit/console": ^1.0.0
+    "@rnx-kit/tools-node": ^2.1.0
+    "@rnx-kit/tools-react-native": ^1.3.4
+    enhanced-resolve: ^5.8.3
+  checksum: 0eb189c28f2adf2f95b784da3c6677e7f75467e7648ac431957090a256c4f1172e26110906308012356d7c79f089983aa5c2d105158e971f837b705a7d17b15a
+  languageName: node
+  linkType: hard
+
+"@rnx-kit/tools-node@npm:^2.0.1, @rnx-kit/tools-node@npm:^2.1.0":
+  version: 2.1.2
+  resolution: "@rnx-kit/tools-node@npm:2.1.2"
+  checksum: d5d882299adb9ad8d427fadc719191f4c55d64bc88a2d5e46490bb2010ee7ca45728498094c1e3aef6912f1a62095ddf04c1af893bc6d783de1b8b668b0acd1a
+  languageName: node
+  linkType: hard
+
+"@rnx-kit/tools-react-native@npm:^1.3.4":
+  version: 1.4.2
+  resolution: "@rnx-kit/tools-react-native@npm:1.4.2"
+  dependencies:
+    "@rnx-kit/tools-node": ^2.0.1
+  checksum: 94af27d673c02d3c380363f84528a450084f4803a7e0d69fefc02d2182d80d99d554aba5e9f25638de79354e28673b21a985bd07b354b22c4db2a37a02777884
+  languageName: node
+  linkType: hard
+
 "@sideway/address@npm:^4.1.5":
   version: 4.1.5
   resolution: "@sideway/address@npm:4.1.5"
@@ -2998,6 +3033,7 @@ __metadata:
     "@react-native/eslint-config": 0.74.87
     "@react-native/metro-config": 0.74.87
     "@react-native/typescript-config": 0.74.87
+    "@rnx-kit/metro-resolver-symlinks": ^0.1.36
     "@types/react": ^18.2.6
     "@types/react-test-renderer": ^18.0.0
     babel-jest: ^29.6.3
@@ -4237,6 +4273,16 @@ __metadata:
   dependencies:
     iconv-lite: ^0.6.2
   checksum: bb98632f8ffa823996e508ce6a58ffcf5856330fde839ae42c9e1f436cc3b5cc651d4aeae72222916545428e54fd0f6aa8862fd8d25bdbcc4589f1e3f3715e7f
+  languageName: node
+  linkType: hard
+
+"enhanced-resolve@npm:^5.8.3":
+  version: 5.17.1
+  resolution: "enhanced-resolve@npm:5.17.1"
+  dependencies:
+    graceful-fs: ^4.2.4
+    tapable: ^2.2.0
+  checksum: 4bc38cf1cea96456f97503db7280394177d1bc46f8f87c267297d04f795ac5efa81e48115a2f5b6273c781027b5b6bfc5f62b54df629e4d25fa7001a86624f59
   languageName: node
   linkType: hard
 
@@ -8931,6 +8977,13 @@ __metadata:
   version: 1.0.0
   resolution: "supports-preserve-symlinks-flag@npm:1.0.0"
   checksum: 53b1e247e68e05db7b3808b99b892bd36fb096e6fba213a06da7fab22045e97597db425c724f2bbd6c99a3c295e1e73f3e4de78592289f38431049e1277ca0ae
+  languageName: node
+  linkType: hard
+
+"tapable@npm:^2.2.0":
+  version: 2.2.1
+  resolution: "tapable@npm:2.2.1"
+  checksum: 3b7a1b4d86fa940aad46d9e73d1e8739335efd4c48322cb37d073eb6f80f5281889bf0320c6d8ffcfa1a0dd5bfdbd0f9d037e252ef972aca595330538aac4d51
   languageName: node
   linkType: hard
 
