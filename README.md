@@ -1,79 +1,101 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Removing features from a react native app
 
-# Getting Started
+## Introduction
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+In modern mobile app development, optimizing the size of the final bundle based on feature flags is crucial for delivering a fast and efficient user experience. React Native, a popular framework for building cross-platform mobile apps, leverages **Metro Bundler** and **Terser** to achieve this optimization. This guide delves into how these tools work in tandem to remove unused code based on environment variables, ensuring the final bundle includes only the necessary features.
 
-## Step 1: Start the Metro Server
+## Understanding Metro Bundler
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+Metro Bundler serves as the default JavaScript bundler for React Native. It aggregates all JavaScript code and assets into a single bundle for app loading. Key features include:
 
-To start Metro, run the following command from the _root_ of your React Native project:
+- **Hot Reloading**: Allows for real-time code changes without a full reload.
+- **Fast Refresh**: Updates the UI instantly upon code changes.
+- **Source Maps**: Facilitates debugging by mapping minified code back to its original source.
 
-```bash
-# using npm
-npm start
+Metro's role extends to preparing code for production through minification and tree shaking.
 
-# OR using Yarn
-yarn start
+## Introduction to Terser
+
+Terser is a JavaScript toolkit for parsing, mangling, and compressing code, crucial for:
+
+- **Minification**: Strips unnecessary characters to reduce file size.
+- **Mangling**: Renames variables and functions to shorter versions.
+- **Dead Code Elimination**: Removes unreachable or unused code.
+
+By integrating Terser with Metro, React Native optimizes the bundle for size and performance.
+
+## Leveraging Environment Variables
+
+Environment variables, particularly `process.env`, dictate the build type (development or production). This distinction allows for tailored optimizations:
+
+- In production, aggressive minification and code elimination are employed.
+
+### Example: Conditional Code Removal
+
+```javascript
+if (__DEV__) {
+  console.log('This is a development build.');
+} else {
+  console.log('This is a production build.');
+}
 ```
 
-## Step 2: Start your Application
+In production, Terser removes the `__DEV__` block since `__DEV__` is set to `false`.
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+## Metro Configuration for Feature Flags
 
-### For Android
+This configuration file sets up Metro to manage feature flags via environment variables:
 
-```bash
-# using npm
-npm run android
+1. **Environment Setup**:
 
-# OR using Yarn
-yarn android
-```
+   ```javascript
+   require('dotenv').config();
+   const path = require('path');
+   ```
 
-### For iOS
+   Loads environment variables from `.env` and imports the `path` module.
 
-```bash
-# using npm
-npm run ios
+2. **Custom Block List**:
 
-# OR using Yarn
-yarn ios
-```
+   ```javascript
+   const blockCustomExts = [];
+   if (process.env.FEATURE_A === 'false') {
+     blockCustomExts.push(new RegExp('.+.featurea'));
+   }
+   if (process.env.FEATURE_B === 'false') {
+     blockCustomExts.push(new RegExp('.+.featureb'));
+   }
+   ```
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+   This dynamically creates a block list based on feature flags, allowing for feature toggling.
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+3. **Custom Configuration**:
 
-## Step 3: Modifying your App
+   ```javascript
+   const config = {
+     resolver: {
+       resolveRequest: MetroSymlinksResolver(),
+       assetExts: assetExts,
+       sourceExts: sourceExts,
+       blockList: [blockList, ...blockCustomExts],
+     },
+   };
+   ```
 
-Now that you have successfully run the app, let's modify it.
+   Combines default settings with custom block lists for feature-specific builds.
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+4. **Merge Configuration**:
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+   ```javascript
+   module.exports = mergeConfig(defaultConfig, config);
+   ```
 
-## Congratulations! :tada:
+   Merges custom settings with default configurations.
 
-You've successfully run and modified your React Native App. :partying_face:
+## Testing Your App
 
-### Now what?
+- Duplicate `.env.example` to `.env`.
+- Modify flags in `.env` as needed.
+- Run the app with `yarn start --reset-cache` followed by `yarn android` or `yarn ios`.
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+This setup allows for dynamic feature inclusion, enhancing app performance and user experience by tailoring the build to specific needs or environments.
