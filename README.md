@@ -101,3 +101,7 @@ This configuration file sets up Metro to manage feature flags via environment va
 - Run the app with `yarn start --reset-cache` followed by `yarn android` or `yarn ios`.
 
 This setup allows for dynamic feature inclusion, enhancing app performance and user experience by tailoring the build to specific needs or environments.
+
+## Bundle Validation
+
+You can use this scripts: `yarn bundle:(android | ios)`. In this case it does not matter, what script you will use, because it is not a platform specific code. The combination of source extension and platform extension is possible, but it was not tested yet. You can try this by your own. Once bundle is done,

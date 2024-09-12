@@ -7,7 +7,9 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "bundle:android": "react-native bundle --entry-file index.js --platform android --dev false --bundle-output ./main.android.bundle --reset-cache",
+    "bundle:ios": "react-native bundle --entry-file index.js --platform ios --dev false --bundle-output ./main.ios.bundle --reset-cache"
   },
   "dependencies": {
     "dotenv": "^16.4.5",
