@@ -104,4 +104,27 @@ This setup allows for dynamic feature inclusion, enhancing app performance and u
 
 ## Bundle Validation
 
-You can use this scripts: `yarn bundle:(android | ios)`. In this case it does not matter, what script you will use, because it is not a platform specific code. The combination of source extension and platform extension is possible, but it was not tested yet. You can try this by your own. Once bundle is done,
+You can validate your bundle using the following scripts:
+
+- For both Android and iOS, use:
+
+  ```bash
+  yarn bundle:(android | ios)
+  ```
+
+  **Note:** The choice between `android` and `ios` scripts does not matter here, as the code is not platform-specific. Although it's theoretically possible to combine source and platform extensions, but this has not been tested in this repository. Feel free to experiment on your own.
+
+Once the bundling process is complete, you can verify the contents using the following commands, depending on your configuration:
+
+- If `FEATURE_A=true`:
+
+  ```bash
+  strings ./main.ios.bundle | grep 'HomeScreen Feature A'
+  ```
+
+- If `FEATURE_B=true`:
+  ```bash
+  strings ./main.ios.bundle | grep 'HomeScreen Feature B'
+  ```
+
+Those scripts can be easily integrated with any CI as a separate step.
