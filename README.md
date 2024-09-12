@@ -24,6 +24,8 @@ Terser is a JavaScript toolkit for parsing, mangling, and compressing code, cruc
 
 By integrating Terser with Metro, React Native optimizes the bundle for size and performance.
 
+Dead code eliminations is being done by default in the react native app. In the context of the Babel preset for React Native, dead code elimination isn't explicitly mentioned in the plugins list.
+
 ## Leveraging Environment Variables
 
 Environment variables, particularly `process.env`, dictate the build type (development or production). This distinction allows for tailored optimizations:
